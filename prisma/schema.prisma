@@ -1,0 +1,205 @@
+// This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  githubId      String    @unique
+  email         String    @unique
+  username      String
+  name          String?
+  image         String?
+  isAdmin       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  lastActive    DateTime  @updatedAt
+
+  cardProgress  UserCardProgress[]
+  attempts      ChallengeAttempt[]
+  mastery       UserConceptMastery[]
+  repos         GitHubRepo[]
+  fsrsParams    UserFSRSParams?
+  events        Event[]
+}
+
+model Concept {
+  id            String    @id @default(cuid())
+  name          String
+  category      String
+  description   String
+  difficulty    Int       // 1-5 scale
+  language      String?   // Programming language (optional, for filtering)
+  createdAt     DateTime  @default(now())
+  
+  flashcards    Flashcard[]
+  challenges    Challenge[]
+  prerequisites ConceptPrerequisite[] @relation("ConceptToPrerequisite")
+  dependents    ConceptPrerequisite[] @relation("PrerequisiteToConcept")
+  mastery       UserConceptMastery[]
+  repoDetections RepoDetectedConcept[]
+  
+  @@index([language, category])
+}
+
+model ConceptPrerequisite {
+  conceptId       String
+  prerequisiteId  String
+  concept         Concept @relation("ConceptToPrerequisite", fields: [conceptId], references: [id], onDelete: Cascade)
+  prerequisite    Concept @relation("PrerequisiteToConcept", fields: [prerequisiteId], references: [id], onDelete: Cascade)
+  
+  @@id([conceptId, prerequisiteId])
+}
+
+model Flashcard {
+  id          String   @id @default(cuid())
+  conceptId   String
+  type        String   // 'syntax', 'concept', 'bug', 'use_case', 'prediction'
+  front       String
+  back        String
+  codeExample String?
+  createdAt   DateTime @default(now())
+  
+  concept     Concept @relation(fields: [conceptId], references: [id], onDelete: Cascade)
+  progress    UserCardProgress[]
+  
+  @@index([conceptId, type])
+}
+
+model UserCardProgress {
+  id             String   @id @default(cuid())
+  userId         String
+  flashcardId    String
+  
+  // FSRS card state
+  stability      Float    @default(0)
+  difficulty     Float    @default(0)
+  elapsedDays    Int      @default(0)
+  scheduledDays  Int      @default(0)
+  reps           Int      @default(0)
+  lapses         Int      @default(0)
+  state          Int      @default(0) // 0=New, 1=Learning, 2=Review, 3=Relearning
+  lastReview     DateTime?
+  nextReview     DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  user           User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  flashcard      Flashcard @relation(fields: [flashcardId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, flashcardId])
+  @@index([userId, nextReview])
+  @@index([userId, state])
+}
+
+model UserFSRSParams {
+  userId    String   @id
+  wParams   String   // JSON string of 17 weight parameters for personalized FSRS
+  updatedAt DateTime @updatedAt
+  
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Challenge {
+  id               String   @id @default(cuid())
+  conceptId        String
+  title            String
+  description      String
+  language         String   // 'javascript', 'python', 'typescript', etc
+  stage            Int      // 1-5 (Syntax Recall to Full Implementation)
+  difficulty       String   // 'beginner', 'intermediate', 'advanced'
+  starterCode      String
+  solutionTemplate String?
+  testCases        Json     // Array of test cases with input/expected/description
+  hints            String   // JSON string array of hint strings
+  timeLimit        Int      @default(3000) // milliseconds
+  memoryLimit      Int      @default(-1)    // bytes, -1 = unlimited
+  createdAt        DateTime @default(now())
+  
+  concept          Concept @relation(fields: [conceptId], references: [id], onDelete: Cascade)
+  attempts         ChallengeAttempt[]
+  
+  @@index([language, conceptId])
+  @@index([stage, difficulty])
+}
+
+model ChallengeAttempt {
+  id            String   @id @default(cuid())
+  userId        String
+  challengeId   String
+  code          String
+  status        String   // 'passed', 'failed', 'timeout', 'error'
+  executionTime Int      // milliseconds
+  testResults   Json     // Detailed test results
+  aiFeedback    String?  // Optional AI-generated feedback (with user consent)
+  createdAt     DateTime @default(now())
+  
+  user          User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge     Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, challengeId, createdAt])
+  @@index([userId, status])
+}
+
+model UserConceptMastery {
+  id            String   @id @default(cuid())
+  userId        String
+  conceptId     String
+  masteryLevel  Float    @default(0) // 0-100 scale
+  retentionRate Float    @default(0) // 0-100 scale
+  totalReviews  Int      @default(0)
+  lastReviewed  DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  user          User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  concept       Concept @relation(fields: [conceptId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, conceptId])
+  @@index([userId, masteryLevel])
+}
+
+model GitHubRepo {
+  id           String   @id @default(cuid())
+  userId       String
+  repoName     String
+  repoUrl      String?
+  optedIn      Boolean  @default(false)
+  analysisDate DateTime?
+  createdAt    DateTime @default(now())
+  
+  user         User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  detections   RepoDetectedConcept[]
+  
+  @@unique([userId, repoName])
+}
+
+model RepoDetectedConcept {
+  repoId      String
+  conceptId   String
+  confidence  Float    // 0-1 scale
+  detectedAt  DateTime @default(now())
+  
+  repo        GitHubRepo @relation(fields: [repoId], references: [id], onDelete: Cascade)
+  concept     Concept @relation(fields: [conceptId], references: [id], onDelete: Cascade)
+  
+  @@id([repoId, conceptId])
+  @@index([repoId, confidence])
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  userId    String
+  eventType String   // 'card_reviewed', 'challenge_completed', 'concept_mastered', etc
+  eventData Json     // Flexible event data storage
+  createdAt DateTime @default(now())
+  
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, eventType, createdAt])
+  @@index([eventType, createdAt])
+}

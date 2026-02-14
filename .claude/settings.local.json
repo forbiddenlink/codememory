@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx @purplegumdropz/specter scan:*)",
+      "Bash(npx ally-a11y health:*)",
+      "Bash(npx:*)",
+      "Bash(~/.claude/scripts/spec_metadata.sh:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
