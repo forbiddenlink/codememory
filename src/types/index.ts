@@ -311,6 +311,6 @@ export interface Event {
   id: string;
   userId: string;
   eventType: EventType;
-  eventData: Record<string, any>;
+  eventData: Record<string, unknown>;
   createdAt: Date;
 }

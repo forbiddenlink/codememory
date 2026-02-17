@@ -1,0 +1,65 @@
+
+
+Config: /Volumes/LizsDisk/codememory/squirrel.toml
+Database: /Users/elizabethstein/.squirrel/projects/codememory/project.db
+New crawl: http://localhost:3210
+Found 7 URLs in sitemap
+<?xml version="1.0" encoding="UTF-8"?>
+<audit version="0.0.33">
+<site url="http://localhost:3210" crawled="7" date="2026-02-16T21:45:05.118Z"/>
+<score overall="86" grade="B">
+ <cat name="Security" score="80"/>
+ <cat name="Performance" score="95"/>
+ <cat name="Accessibility" score="98"/>
+ <cat name="E-E-A-T" score="89"/>
+ <cat name="Content" score="100"/>
+ <cat name="Core SEO" score="100"/>
+ <cat name="Crawlability" score="100"/>
+ <cat name="Internationalization" score="100"/>
+ <cat name="Images" score="100"/>
+ <cat name="Legal Compliance" score="100"/>
+ <cat name="Links" score="100"/>
+ <cat name="Mobile" score="100"/>
+ <cat name="Structured Data" score="100"/>
+ <cat name="Social Media" score="100"/>
+ <cat name="URL Structure" score="100"/>
+</score>
+<summary passed="599" warnings="22" failed="7"/>
+<issues>
+ <category name="Security" errors="7" warnings="0">
+  <rule id="security/https" severity="error" status="fail" docs="https://docs.squirrelscan.com/rules/security/https">
+   Page not served over HTTPS
+   Pages (7): /dashboard, /, /review, /stats, /about, /contact, /privacy-policy
+  </rule>
+ </category>
+ <category name="Performance" errors="0" warnings="14">
+  <rule id="perf/critical-request-chains" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/perf/critical-request-chains">
+   2 critical request chain(s) found
+   Pages (7): /dashboard, /, /review, /stats, /about, /contact, /privacy-policy
+   Items (2):
+    - CSS: /_next/static/css/d877ff6f853b0940.css
+    - JS: /_next/static/chunks/polyfills-42372ed130431b0a.js
+  </rule>
+  <rule id="perf/http2" severity="info" status="warn" docs="https://docs.squirrelscan.com/rules/perf/http2">
+   HTTP/2 requires HTTPS
+   Pages (7): /dashboard, /, /review, /stats, /about, /contact, /privacy-policy
+  </rule>
+ </category>
+ <category name="Accessibility" errors="0" warnings="7">
+  <rule id="a11y/color-contrast" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/a11y/color-contrast">
+   2 potential color contrast issue(s)
+   Pages (7): /dashboard, /, /review, /stats, /about, /contact, /privacy-policy
+   Items (2):
+    - White text (verify background): 1 instance(s)
+    - Very light text color: 1 instance(s)
+  </rule>
+ </category>
+ <category name="E-E-A-T" errors="0" warnings="1">
+  <rule id="eeat/author-byline" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/author-byline">
+   No content pages have author attribution
+  </rule>
+ </category>
+</issues>
+</audit>
+
+

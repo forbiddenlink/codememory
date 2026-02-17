@@ -1,0 +1,243 @@
+{
+  "meta": {
+    "version": "0.0.33",
+    "baseUrl": "http://localhost:3210",
+    "timestamp": "2026-02-16T21:37:00.914Z",
+    "totalPages": 7
+  },
+  "score": {
+    "overall": 86,
+    "grade": "B",
+    "categories": [
+      {
+        "name": "Security",
+        "score": 76
+      },
+      {
+        "name": "Performance",
+        "score": 95
+      },
+      {
+        "name": "Accessibility",
+        "score": 98
+      },
+      {
+        "name": "E-E-A-T",
+        "score": 89
+      },
+      {
+        "name": "Content",
+        "score": 100
+      },
+      {
+        "name": "Core SEO",
+        "score": 100
+      },
+      {
+        "name": "Crawlability",
+        "score": 100
+      },
+      {
+        "name": "Internationalization",
+        "score": 100
+      },
+      {
+        "name": "Images",
+        "score": 100
+      },
+      {
+        "name": "Legal Compliance",
+        "score": 100
+      },
+      {
+        "name": "Links",
+        "score": 100
+      },
+      {
+        "name": "Mobile",
+        "score": 100
+      },
+      {
+        "name": "Structured Data",
+        "score": 100
+      },
+      {
+        "name": "Social Media",
+        "score": 100
+      },
+      {
+        "name": "URL Structure",
+        "score": 100
+      }
+    ]
+  },
+  "summary": {
+    "passed": 599,
+    "warnings": 23,
+    "failed": 7
+  },
+  "issues": [
+    {
+      "ruleId": "security/https",
+      "name": "HTTPS",
+      "description": "Checks for HTTPS usage",
+      "solution": "HTTPS encrypts data between users and your server, protecting sensitive information. It's a ranking signal and required for many modern browser features. Migrate to HTTPS by obtaining an SSL certificate (free from Let's Encrypt). Update internal links to use https://. Set up 301 redirects from HTTP to HTTPS. Update your canonical URLs and sitemap. Check for mixed content warnings after migration.",
+      "category": "Security",
+      "severity": "error",
+      "checks": [
+        {
+          "name": "https",
+          "status": "fail",
+          "message": "Page not served over HTTPS",
+          "affectedPages": [
+            "http://localhost:3210/dashboard",
+            "http://localhost:3210/",
+            "http://localhost:3210/review",
+            "http://localhost:3210/stats",
+            "http://localhost:3210/about",
+            "http://localhost:3210/contact",
+            "http://localhost:3210/privacy-policy"
+          ],
+          "legacyValue": "http:"
+        }
+      ]
+    },
+    {
+      "ruleId": "security/csp",
+      "name": "Content Security Policy",
+      "description": "Checks for Content-Security-Policy header and validates directives",
+      "solution": "CSP prevents XSS attacks by restricting which resources can load. Start with a report-only policy to identify issues. Key directives: default-src 'self', script-src (avoid 'unsafe-inline'), img-src, style-src, frame-ancestors. Use nonces or hashes instead of 'unsafe-inline' for scripts. Test thoroughly as strict CSP can break functionality.",
+      "category": "Security",
+      "severity": "warning",
+      "checks": [
+        {
+          "name": "csp-unsafe-scripts",
+          "status": "warn",
+          "message": "CSP allows 'unsafe-inline'",
+          "affectedPages": [],
+          "legacyValue": "Weakens XSS protection significantly"
+        }
+      ]
+    },
+    {
+      "ruleId": "perf/critical-request-chains",
+      "name": "Critical Request Chains",
+      "description": "Identifies chains of dependent resources that delay rendering",
+      "solution": "Critical request chains are sequences of dependent network requests that must complete before the page can render. Reduce chain depth by: 1) Inlining critical CSS instead of linking external files. 2) Adding async or defer to non-critical scripts. 3) Avoiding CSS @import — use <link> tags instead. 4) Using <link rel='preload'> for critical resources. 5) Reducing the number of render-blocking resources in <head>.",
+      "category": "Performance",
+      "severity": "warning",
+      "checks": [
+        {
+          "name": "critical-request-chains",
+          "status": "warn",
+          "message": "2 critical request chain(s) found",
+          "affectedPages": [
+            "http://localhost:3210/dashboard",
+            "http://localhost:3210/",
+            "http://localhost:3210/review",
+            "http://localhost:3210/stats",
+            "http://localhost:3210/about",
+            "http://localhost:3210/contact",
+            "http://localhost:3210/privacy-policy"
+          ],
+          "items": [
+            {
+              "id": "CSS: /_next/static/css/c8e9b4c3d19ce765.css"
+            },
+            {
+              "id": "JS: /_next/static/chunks/polyfills-42372ed130431b0a.js"
+            }
+          ],
+          "details": {
+            "blockingCss": 1,
+            "blockingJs": 1,
+            "importCount": 0,
+            "preloads": 2
+          }
+        }
+      ]
+    },
+    {
+      "ruleId": "perf/http2",
+      "name": "HTTP/2",
+      "description": "Checks for HTTP/2 protocol support",
+      "solution": "HTTP/2 enables multiplexing, header compression, and server push for faster page loads. Most modern web servers and CDNs support HTTP/2 out of the box. Requires HTTPS. Check your server/CDN documentation to enable it. HTTP/3 (QUIC) provides even better performance.",
+      "category": "Performance",
+      "severity": "info",
+      "checks": [
+        {
+          "name": "http2-https-required",
+          "status": "warn",
+          "message": "HTTP/2 requires HTTPS",
+          "affectedPages": [
+            "http://localhost:3210/dashboard",
+            "http://localhost:3210/",
+            "http://localhost:3210/review",
+            "http://localhost:3210/stats",
+            "http://localhost:3210/about",
+            "http://localhost:3210/contact",
+            "http://localhost:3210/privacy-policy"
+          ]
+        }
+      ]
+    },
+    {
+      "ruleId": "a11y/color-contrast",
+      "name": "Color Contrast",
+      "description": "Checks for color contrast issues in styles and classes",
+      "solution": "Text must have sufficient contrast with its background for readability. WCAG AA requires 4.5:1 for normal text and 3:1 for large text (18px+ or 14px+ bold). Use tools like WebAIM Contrast Checker to verify. Common issues: light gray text, text over images without overlay. Don't rely on color alone to convey information - add icons or text labels.",
+      "category": "Accessibility",
+      "severity": "warning",
+      "checks": [
+        {
+          "name": "color-contrast",
+          "status": "warn",
+          "message": "2 potential color contrast issue(s)",
+          "affectedPages": [
+            "http://localhost:3210/dashboard",
+            "http://localhost:3210/",
+            "http://localhost:3210/review",
+            "http://localhost:3210/stats",
+            "http://localhost:3210/about",
+            "http://localhost:3210/contact",
+            "http://localhost:3210/privacy-policy"
+          ],
+          "items": [
+            {
+              "id": "White text (verify background): 1 instance(s)"
+            },
+            {
+              "id": "Very light text color: 1 instance(s)"
+            }
+          ],
+          "details": {
+            "note": "WCAG AA requires 4.5:1 for normal text, 3:1 for large text",
+            "inlineIssues": 0,
+            "classBasedIssues": 0,
+            "cssIssues": 0,
+            "patternIssues": 2
+          }
+        }
+      ]
+    },
+    {
+      "ruleId": "eeat/author-byline",
+      "name": "Author Bylines",
+      "description": "Checks for visible author names on content pages",
+      "solution": "Author bylines demonstrate experience and accountability. Show author names prominently on articles, blog posts, and expert content. Include author credentials where relevant. Link author names to bio pages. For YMYL content (health, finance), author transparency is especially important for Google's E-E-A-T assessment.",
+      "category": "E-E-A-T",
+      "severity": "warning",
+      "checks": [
+        {
+          "name": "author-byline",
+          "status": "warn",
+          "message": "No content pages have author attribution",
+          "affectedPages": [],
+          "legacyValue": "Add author bylines to build E-E-A-T"
+        }
+      ]
+    }
+  ]
+}
+
+

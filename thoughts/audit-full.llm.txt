@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<audit version="0.0.33">
+<site url="http://localhost:3000" crawled="3" date="2026-02-16T20:53:21.807Z"/>
+<score overall="29" grade="F">
+ <cat name="Core SEO" score="62"/>
+ <cat name="Security" score="35"/>
+ <cat name="Performance" score="81"/>
+ <cat name="Crawlability" score="61"/>
+ <cat name="Accessibility" score="90"/>
+ <cat name="Content" score="64"/>
+ <cat name="E-E-A-T" score="53"/>
+ <cat name="Links" score="91"/>
+ <cat name="Legal Compliance" score="44"/>
+ <cat name="Internationalization" score="100"/>
+ <cat name="Images" score="100"/>
+ <cat name="Mobile" score="100"/>
+ <cat name="URL Structure" score="100"/>
+</score>
+<summary passed="178" warnings="75" failed="9"/>
+<issues>
+ <category name="Crawlability" errors="1" warnings="2">
+  <rule id="crawl/sitemap-exists" severity="error" status="fail" docs="https://docs.squirrelscan.com/rules/crawl/sitemap-exists">
+   No XML sitemap found
+  </rule>
+  <rule id="crawl/robots-txt" severity="error" status="warn" docs="https://docs.squirrelscan.com/rules/crawl/robots-txt">
+   No robots.txt found
+  </rule>
+  <rule id="crawl/canonical-chain" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/crawl/canonical-chain">
+   Page redirects before content is served
+   Pages (1): /api/auth/signin
+   Items (1):
+    - /api/auth/signin (http://localhost:3000/api/auth/signin (302) → http://localhost:3000/?callbackUrl=http%3A%2F%2Flocalhost%3A3000 (200)) [finalUrl: http://localhost:3000/?callbackUrl=http%3A%2F%2Flocalhost%3A3000, chain: [object Object]]
+  </rule>
+ </category>
+ <category name="Core SEO" errors="4" warnings="22">
+  <rule id="core/h1" severity="error" status="fail" docs="https://docs.squirrelscan.com/rules/core/h1">
+   No H1 tag found
+   Pages (1): /dashboard
+  </rule>
+  <rule id="core/meta-description" severity="error" status="warn" docs="https://docs.squirrelscan.com/rules/core/meta-description">
+   Description too short (52 chars, min 120)
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+  <rule id="core/canonical" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/core/canonical">
+   Missing canonical URL
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+  <rule id="core/charset" severity="warning" status="fail" docs="https://docs.squirrelscan.com/rules/core/charset">
+   No charset declaration found
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+  <rule id="core/og-tags" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/core/og-tags">
+   Missing og:title; Missing og:description; Missing og:image - social shares will lack imagery
+   Pages (3): /, /dashboard, /api/auth/signin
+   Items (9):
+    - /
+    - /dashboard
+    - /api/auth/signin
+    - /
+    - /dashboard
+    - /api/auth/signin
+    - /
+    - /dashboard
+    - /api/auth/signin
+  </rule>
+  <rule id="core/title-unique" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/core/title-unique">
+   1 duplicate title(s) affecting 3 pages
+   Items (1):
+    - codememory - learn. code. remember. (&quot;codememory - learn. code. remember....&quot; (3 pages)) [pageCount: 3] (from: /, /dashboard, /api/auth/signin)
+  </rule>
+  <rule id="core/favicon" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/core/favicon">
+   No favicon found
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+  <rule id="core/twitter-cards" severity="info" status="warn" docs="https://docs.squirrelscan.com/rules/core/twitter-cards">
+   No Twitter card or Open Graph tags for Twitter sharing
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+ </category>
+ <category name="Security" errors="3" warnings="3">
+  <rule id="security/leaked-secrets" severity="error" status="warn" docs="https://docs.squirrelscan.com/rules/security/leaked-secrets">
+   6 potential secret(s) detected (verify manually)
+   Items (6):
+    - DigitalOcean Spaces Key: DO29CQ**************GQUF (Found in external-script (http://localhost:3000/_next/static/chunks/app-pages-internals.js))
+    - DigitalOcean Spaces Key: DO29CQ********************FBLE (Found in external-script (http://localhost:3000/_next/static/chunks/app-pages-internals.js))
+    - DigitalOcean Spaces Key: DO29CQ********************FBLE (Found in external-script (http://localhost:3000/_next/static/chunks/app-pages-internals.js))
+    - Sanity Token: ske0pT********************IiJ9 (Found in external-script (http://localhost:3000/_next/static/chunks/app-pages-internals.js))
+    - DigitalOcean Spaces Key: DO1FBQ**************BQVE (Found in external-script (http://localhost:3000/_next/static/chunks/app/layout.js))
+    - DigitalOcean Spaces Key: DO1FBQ**************CQUF (Found in external-script (http://localhost:3000/_next/static/chunks/app/dashboard/page.js))
+  </rule>
+  <rule id="security/https" severity="error" status="fail" docs="https://docs.squirrelscan.com/rules/security/https">
+   Page not served over HTTPS
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+  <rule id="security/csp" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/security/csp">
+   No Content-Security-Policy header
+  </rule>
+  <rule id="security/x-frame-options" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/security/x-frame-options">
+   No clickjacking protection
+  </rule>
+ </category>
+ <category name="Links" errors="0" warnings="4">
+  <rule id="links/internal-links" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/links/internal-links">
+   Too few internal links (0, min 1)
+   Pages (1): /dashboard
+  </rule>
+  <rule id="links/redirect-chains" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/links/redirect-chains">
+   1 page(s) redirect to another URL; 1 link target(s) point to redirecting URLs
+   Items (2):
+    - /api/auth/signin (http://localhost:3000/api/auth/signin (302) → http://localhost:3000/?callbackUrl=http%3A%2F%2Flocalhost%3A3000 (200)) [targetUrl: http://localhost:3000/?callbackUrl=http%3A%2F%2Flocalhost%3A3000, chain: [object Object]]
+    - /api/auth/signin (http://localhost:3000/api/auth/signin (302) → http://localhost:3000/?callbackUrl=http%3A%2F%2Flocalhost%3A3000 (200)) [targetUrl: http://localhost:3000/?callbackUrl=http%3A%2F%2Flocalhost%3A3000, chain: [object Object]] (from: /, /api/auth/signin)
+  </rule>
+  <rule id="links/dead-end-pages" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/links/dead-end-pages">
+   Page has no outgoing internal links (dead-end)
+   Pages (1): /dashboard
+  </rule>
+ </category>
+ <category name="Content" errors="0" warnings="7">
+  <rule id="content/duplicate-title" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/content/duplicate-title">
+   1 duplicate title(s) found across 3 pages
+   Items (1):
+    - codememory - learn. code. remember. (&quot;codememory - learn. code. remember....&quot; (3 pages)) [pageCount: 3] (from: /, /dashboard, /api/auth/signin)
+  </rule>
+  <rule id="content/duplicate-description" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/content/duplicate-description">
+   1 duplicate description(s) found across 3 pages
+   Items (1):
+    - spaced repetition system for web development mastery (&quot;spaced repetition system for web develop...&quot; (3 pages)) [pageCount: 3] (from: /, /dashboard, /api/auth/signin)
+  </rule>
+  <rule id="content/heading-hierarchy" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/content/heading-hierarchy">
+   Skipped heading levels detected
+   Pages (2): /, /api/auth/signin
+   Items (1):
+    - H1 -&gt; H3
+  </rule>
+  <rule id="content/word-count" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/content/word-count">
+   Thin content: 53 words (min 300); Thin content: 1 words (min 300)
+   Pages (3): /, /api/auth/signin, /dashboard
+  </rule>
+ </category>
+ <category name="Performance" errors="1" warnings="15">
+  <rule id="perf/total-byte-weight" severity="warning" status="fail" docs="https://docs.squirrelscan.com/rules/perf/total-byte-weight">
+   Total tracked resources: 23793KB (very heavy)
+  </rule>
+  <rule id="perf/critical-request-chains" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/perf/critical-request-chains">
+   2 critical request chain(s) found
+   Pages (3): /, /dashboard, /api/auth/signin
+   Items (4):
+    - CSS: /_next/static/css/app/layout.css?v=1771275201969
+    - JS: /_next/static/chunks/polyfills.js
+    - CSS: /_next/static/css/app/layout.css?v=1771275202221
+    - CSS: /_next/static/css/app/layout.css?v=1771275202239
+  </rule>
+  <rule id="perf/unminified-js" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/perf/unminified-js">
+   6 JavaScript file(s) appear unminified
+   Pages (3): /, /dashboard, /api/auth/signin
+   Items (5):
+    - app-pages-internals.js (242.1KB, ~238.9KB savings) [reason: 189 comments, long function names, excessive whitespace]
+    - layout.js (275.3KB, ~193.8KB savings) [reason: 334 comments, long function names]
+    - page.js (154.4KB, ~158.5KB savings) [reason: 80 comments, long function names, excessive whitespace]
+    - webpack.js (137.5KB, ~99.7KB savings) [reason: high newlines (1.00%), 1510 comments, long function names]
+    - page.js (361.9KB, ~366.4KB savings) [reason: 481 comments, long function names, excessive whitespace]
+  </rule>
+  <rule id="perf/http2" severity="info" status="warn" docs="https://docs.squirrelscan.com/rules/perf/http2">
+   HTTP/2 requires HTTPS
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+  <rule id="perf/source-maps" severity="info" status="warn" docs="https://docs.squirrelscan.com/rules/perf/source-maps">
+   21 potential source map(s) detected; 69 inline source map(s) found; 36 potential source map(s) detected; 88 inline source map(s) found
+   Pages (3): /, /api/auth/signin, /dashboard
+   Items (26):
+    - /_next/static/chunks/bfcache.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/client-page.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/client-segment.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/layout-router.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/async-metadata.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/render-from-template-context.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/params.browser.dev.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/params.browser.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/search-params.browser.dev.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/search-params.browser.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/app-pages-internals.js
+    - /_next/static/chunks/app-pages-internals.js
+    - /_next/static/chunks/app-pages-internals.js
+    - /_next/static/chunks/bfcache.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/client-page.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/client-segment.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/layout-router.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/async-metadata.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/render-from-template-context.js.map/nvar (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/params.browser.dev.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/params.browser.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/search-params.browser.dev.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/search-params.browser.js.map/n/n/n;/n (from /_next/static/chunks/app-pages-internals.js)
+    - /_next/static/chunks/app-pages-internals.js
+    - /_next/static/chunks/app-pages-internals.js
+    - /_next/static/chunks/app-pages-internals.js
+  </rule>
+ </category>
+ <category name="Accessibility" errors="0" warnings="14">
+  <rule id="a11y/color-contrast" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/a11y/color-contrast">
+   2 potential color contrast issue(s)
+   Pages (3): /, /dashboard, /api/auth/signin
+   Items (2):
+    - White text (verify background): 1 instance(s)
+    - Very light text color: 1 instance(s)
+  </rule>
+  <rule id="a11y/landmark-one-main" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/a11y/landmark-one-main">
+   Page has no main landmark
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+  <rule id="a11y/heading-order" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/a11y/heading-order">
+   1 heading level skip(s) detected
+   Pages (2): /, /api/auth/signin
+   Items (1):
+    - H3 after H1
+  </rule>
+  <rule id="a11y/skip-link" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/a11y/skip-link">
+   No bypass mechanism for repetitive content
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+  <rule id="a11y/landmark-regions" severity="info" status="warn" docs="https://docs.squirrelscan.com/rules/a11y/landmark-regions">
+   No &lt;main&gt; landmark found
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+ </category>
+ <category name="E-E-A-T" errors="0" warnings="5">
+  <rule id="eeat/about-page" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/about-page">
+   No About page found
+  </rule>
+  <rule id="eeat/author-byline" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/author-byline">
+   No content pages have author attribution
+  </rule>
+  <rule id="eeat/contact-page" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/contact-page">
+   No Contact page found
+  </rule>
+  <rule id="eeat/privacy-policy" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/privacy-policy">
+   No Privacy Policy page found
+  </rule>
+  <rule id="eeat/content-dates" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/content-dates">
+   No content pages have datePublished
+  </rule>
+ </category>
+ <category name="Legal Compliance" errors="0" warnings="3">
+  <rule id="legal/privacy-policy" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/legal/privacy-policy">
+   No privacy policy link found
+   Pages (3): /, /dashboard, /api/auth/signin
+  </rule>
+ </category>
+</issues>
+</audit>

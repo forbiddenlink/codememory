@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<audit version="0.0.33">
+<site url="http://localhost:3210" crawled="4" date="2026-02-16T21:04:11.702Z"/>
+<score overall="62" grade="D">
+ <cat name="Security" score="72"/>
+ <cat name="Core SEO" score="91"/>
+ <cat name="Content" score="69"/>
+ <cat name="Performance" score="92"/>
+ <cat name="E-E-A-T" score="57"/>
+ <cat name="Social Media" score="77"/>
+ <cat name="Legal Compliance" score="44"/>
+ <cat name="Accessibility" score="98"/>
+ <cat name="Links" score="89"/>
+ <cat name="Crawlability" score="100"/>
+ <cat name="Internationalization" score="100"/>
+ <cat name="Images" score="100"/>
+ <cat name="Mobile" score="100"/>
+ <cat name="URL Structure" score="100"/>
+</score>
+<summary passed="320" warnings="36" failed="10"/>
+<issues>
+ <category name="Core SEO" errors="4" warnings="0">
+  <rule id="core/charset" severity="warning" status="fail" docs="https://docs.squirrelscan.com/rules/core/charset">
+   No charset declaration found
+   Pages (4): /dashboard, /, /review, /stats
+  </rule>
+ </category>
+ <category name="Security" errors="4" warnings="1">
+  <rule id="security/https" severity="error" status="fail" docs="https://docs.squirrelscan.com/rules/security/https">
+   Page not served over HTTPS
+   Pages (4): /dashboard, /, /review, /stats
+  </rule>
+  <rule id="security/csp" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/security/csp">
+   CSP allows &apos;unsafe-inline&apos; and &apos;unsafe-eval&apos;
+  </rule>
+ </category>
+ <category name="Links" errors="0" warnings="2">
+  <rule id="links/orphan-pages" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/links/orphan-pages">
+   2 orphan page(s) with &lt;2 incoming links
+   Items (2):
+    - /review
+    - /stats
+  </rule>
+  <rule id="links/weak-internal-links" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/links/weak-internal-links">
+   2 page(s) have only 1 internal link
+   Items (2):
+    - /review
+    - /stats
+  </rule>
+ </category>
+ <category name="Content" errors="2" warnings="5">
+  <rule id="content/meta-in-body" severity="error" status="fail" docs="https://docs.squirrelscan.com/rules/content/meta-in-body">
+   Found 14 meta tags in &lt;body&gt;
+   Pages (2): /dashboard, /
+   Items (14):
+    - description (description=&quot;CodeMemory helps you master web development with s...&quot;) [content: CodeMemory helps you master web development with s...]
+    - og:title (og:title=&quot;CodeMemory | Master Web Development with Spaced Re...&quot;) [content: CodeMemory | Master Web Development with Spaced Re...]
+    - og:description (og:description=&quot;CodeMemory helps you master web development with s...&quot;) [content: CodeMemory helps you master web development with s...]
+    - og:url (og:url=&quot;http://localhost:3210&quot;) [content: http://localhost:3210]
+    - og:site_name (og:site_name=&quot;CodeMemory&quot;) [content: CodeMemory]
+    - og:image (og:image=&quot;http://localhost:3210/icon.svg&quot;) [content: http://localhost:3210/icon.svg]
+    - og:image:width (og:image:width=&quot;512&quot;) [content: 512]
+    - og:image:height (og:image:height=&quot;512&quot;) [content: 512]
+    - og:image:alt (og:image:alt=&quot;CodeMemory icon&quot;) [content: CodeMemory icon]
+    - og:type (og:type=&quot;website&quot;) [content: website]
+    - twitter:card (twitter:card=&quot;summary_large_image&quot;) [content: summary_large_image]
+    - twitter:title (twitter:title=&quot;CodeMemory | Master Web Development with Spaced Re...&quot;) [content: CodeMemory | Master Web Development with Spaced Re...]
+    - twitter:description (twitter:description=&quot;CodeMemory helps you master web development with s...&quot;) [content: CodeMemory helps you master web development with s...]
+    - twitter:image (twitter:image=&quot;http://localhost:3210/icon.svg&quot;) [content: http://localhost:3210/icon.svg]
+  </rule>
+  <rule id="content/duplicate-description" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/content/duplicate-description">
+   1 duplicate description(s) found across 2 pages
+   Items (1):
+    - codememory helps you master web development with spaced repe (&quot;codememory helps you master web developm...&quot; (2 pages)) [pageCount: 2] (from: /dashboard, /)
+  </rule>
+  <rule id="content/word-count" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/content/word-count">
+   Thin content: 18 words (min 300); Thin content: 61 words (min 300); Thin content: 10 words (min 300); Thin content: 44 words (min 300)
+   Pages (4): /dashboard, /, /review, /stats
+  </rule>
+ </category>
+ <category name="Performance" errors="0" warnings="10">
+  <rule id="perf/critical-request-chains" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/perf/critical-request-chains">
+   2 critical request chain(s) found
+   Pages (4): /dashboard, /, /review, /stats
+   Items (2):
+    - CSS: /_next/static/css/7b73990af105923b.css
+    - JS: /_next/static/chunks/polyfills-42372ed130431b0a.js
+  </rule>
+  <rule id="perf/cache-headers" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/perf/cache-headers">
+   Cache-Control without max-age
+   Pages (2): /review, /stats
+  </rule>
+  <rule id="perf/http2" severity="info" status="warn" docs="https://docs.squirrelscan.com/rules/perf/http2">
+   HTTP/2 requires HTTPS
+   Pages (4): /dashboard, /, /review, /stats
+  </rule>
+ </category>
+ <category name="Social Media" errors="0" warnings="5">
+  <rule id="social/og-image-size" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/social/og-image-size">
+   og:image may be too small
+   Pages (4): /dashboard, /, /review, /stats
+  </rule>
+  <rule id="social/og-url-match" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/social/og-url-match">
+   og:url does not match canonical URL
+   Pages (1): /dashboard
+  </rule>
+ </category>
+ <category name="Accessibility" errors="0" warnings="4">
+  <rule id="a11y/color-contrast" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/a11y/color-contrast">
+   2 potential color contrast issue(s); 3 potential color contrast issue(s)
+   Pages (4): /dashboard, /, /stats, /review
+   Items (5):
+    - White text (verify background): 1 instance(s)
+    - Very light text color: 1 instance(s)
+    - p with class &quot;text-gray-600 dark:text-gray-4...&quot; may have low contrast
+    - White text (verify background): 1 instance(s)
+    - Very light text color: 1 instance(s)
+  </rule>
+ </category>
+ <category name="E-E-A-T" errors="0" warnings="5">
+  <rule id="eeat/about-page" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/about-page">
+   No About page found
+  </rule>
+  <rule id="eeat/author-byline" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/author-byline">
+   No content pages have author attribution
+  </rule>
+  <rule id="eeat/contact-page" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/contact-page">
+   No Contact page found
+  </rule>
+  <rule id="eeat/privacy-policy" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/privacy-policy">
+   No Privacy Policy page found
+  </rule>
+  <rule id="eeat/content-dates" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/eeat/content-dates">
+   No content pages have datePublished
+  </rule>
+ </category>
+ <category name="Legal Compliance" errors="0" warnings="4">
+  <rule id="legal/privacy-policy" severity="warning" status="warn" docs="https://docs.squirrelscan.com/rules/legal/privacy-policy">
+   No privacy policy link found
+   Pages (4): /dashboard, /, /review, /stats
+  </rule>
+ </category>
+</issues>
+</audit>

@@ -6,7 +6,10 @@
       "Bash(npx:*)",
       "Bash(~/.claude/scripts/spec_metadata.sh:*)",
       "Bash(ls:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run test:run:*)",
+      "Bash(wc:*)"
     ]
   }
 }

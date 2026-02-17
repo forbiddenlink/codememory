@@ -37,7 +37,7 @@ export default function NewConceptPage() {
         const error = await response.json();
         setError(error.message || "Failed to create concept");
       }
-    } catch (err) {
+    } catch {
       setError("An error occurred while creating the concept");
     } finally {
       setLoading(false);
@@ -72,7 +72,7 @@ export default function NewConceptPage() {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
               >
                 Concept Name *
               </label>
@@ -90,7 +90,7 @@ export default function NewConceptPage() {
             <div>
               <label
                 htmlFor="category"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
               >
                 Category *
               </label>
@@ -108,7 +108,7 @@ export default function NewConceptPage() {
             <div>
               <label
                 htmlFor="language"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
               >
                 Programming Language
               </label>
@@ -119,7 +119,7 @@ export default function NewConceptPage() {
                 placeholder="e.g., JavaScript, Python, TypeScript"
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
               />
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                 Optional - Leave blank for language-agnostic concepts
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function NewConceptPage() {
             <div>
               <label
                 htmlFor="difficulty"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
               >
                 Difficulty Level *
               </label>
@@ -151,7 +151,7 @@ export default function NewConceptPage() {
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
               >
                 Description *
               </label>
@@ -190,7 +190,7 @@ export default function NewConceptPage() {
             💡 Content Guidelines
           </h3>
           <ul className="list-disc list-inside space-y-1 text-blue-700 dark:text-blue-300">
-            <li>Choose concepts you're actively learning or want to master</li>
+            <li>Choose concepts you&apos;re actively learning or want to master</li>
             <li>Each concept should have 10 flashcards (2 of each type)</li>
             <li>Each concept should have 5 challenges (stages 1-5)</li>
             <li>Start with beginner concepts, progress to advanced</li>

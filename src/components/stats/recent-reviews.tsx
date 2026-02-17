@@ -10,16 +10,16 @@ interface RecentReviewsProps {
 }
 
 const ratingStyles = {
-  1: { dot: "bg-red-500", badge: "bg-red-100 text-red-800", label: "Again" },
-  2: { dot: "bg-orange-500", badge: "bg-orange-100 text-orange-800", label: "Hard" },
-  3: { dot: "bg-green-500", badge: "bg-green-100 text-green-800", label: "Good" },
-  4: { dot: "bg-blue-500", badge: "bg-blue-100 text-blue-800", label: "Easy" },
+  1: { dot: "bg-error", badge: "bg-error-subtle text-error", label: "Again" },
+  2: { dot: "bg-warning", badge: "bg-warning-subtle text-warning", label: "Hard" },
+  3: { dot: "bg-success", badge: "bg-success-subtle text-success", label: "Good" },
+  4: { dot: "bg-accent", badge: "bg-accent-subtle text-accent", label: "Easy" },
 } as const;
 
 export function RecentReviews({ history }: RecentReviewsProps) {
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Recent Reviews</h2>
+    <div className="bg-card rounded-lg border border-border shadow-card p-5">
+      <h2 className="text-base font-semibold text-foreground mb-4">Recent Reviews</h2>
       {history.length > 0 ? (
         <div className="space-y-2">
           {history
@@ -30,17 +30,17 @@ export function RecentReviews({ history }: RecentReviewsProps) {
               return (
                 <div
                   key={index}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between p-2.5 bg-subtle rounded-lg"
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2.5">
                     <div className={`w-2 h-2 rounded-full ${style.dot}`} />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-secondary">
                       {review.conceptId || "Card reviewed"}
                     </span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs text-gray-500">{review.date}</span>
-                    <span className={`text-xs font-medium px-2 py-1 rounded ${style.badge}`}>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-tertiary">{review.date}</span>
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded ${style.badge}`}>
                       {style.label}
                     </span>
                   </div>
@@ -49,8 +49,8 @@ export function RecentReviews({ history }: RecentReviewsProps) {
             })}
         </div>
       ) : (
-        <div className="text-center text-gray-500 py-12">
-          No review history yet. Complete some reviews to track your progress!
+        <div className="text-center text-secondary text-sm py-10">
+          No review history yet.
         </div>
       )}
     </div>

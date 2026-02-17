@@ -96,128 +96,154 @@ export default function GuestDashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-600">Loading...</div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <main className="w-full max-w-5xl mx-auto px-6 py-8">
+          <h1 className="text-2xl font-semibold text-foreground mb-1">Dashboard</h1>
+          <p className="text-secondary text-sm mb-6">Preparing your learning workspace...</p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/review"
+              className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover transition-colors"
+            >
+              <Play className="w-4 h-4" />
+              Go to Review
+            </Link>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-subtle transition-colors"
+            >
+              Return Home
+            </Link>
+            <Link
+              href="/stats"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-subtle transition-colors"
+            >
+              Analytics
+            </Link>
+          </div>
+          <section className="mt-6 rounded-lg border border-border bg-card p-5 shadow-card">
+            <h2 className="text-lg font-semibold text-foreground mb-2">Getting Started</h2>
+            <p className="text-secondary text-sm">
+              This dashboard helps you convert daily study effort into durable technical recall.
+              Once your concepts load, you can start review sessions and track progress.
+            </p>
+          </section>
+        </main>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Guest Mode Banner */}
-      <div className="bg-indigo-600 text-white py-2 px-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between text-sm">
-          <div className="flex items-center space-x-2">
+      <div className="bg-accent text-white py-2.5 px-4">
+        <div className="max-w-5xl mx-auto flex items-center justify-between text-sm">
+          <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4" />
-            <span>Guest Mode - Progress saved in your browser</span>
+            <span>Guest Mode — Progress saved in your browser</span>
           </div>
           <form action="/api/auth/signin">
             <button
               type="submit"
-              className="bg-white/20 hover:bg-white/30 px-3 py-1 rounded text-sm font-medium transition-colors"
+              className="bg-white/15 hover:bg-white/25 px-3 py-1 rounded-lg text-sm font-medium transition-colors"
             >
-              Sign in to sync across devices
+              Sign in to sync
             </button>
           </form>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto p-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
-          <p className="text-gray-600">Track your learning progress</p>
+      <main className="max-w-5xl mx-auto px-6 py-8">
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold text-foreground mb-1">Dashboard</h1>
+          <p className="text-secondary text-sm">Track your learning progress</p>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl shadow-md p-6 border border-orange-200 hover:shadow-lg transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center shadow-sm">
-                <TrendingUp className="w-5 h-5 text-white" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="bg-card rounded-lg border border-border p-5 shadow-card hover:shadow-card-hover transition-shadow">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-warning-subtle text-warning">
+                <TrendingUp className="w-[18px] h-[18px]" />
               </div>
+              <span className="text-sm font-medium text-secondary">Due for Review</span>
             </div>
-            <div className="text-3xl font-bold text-gray-900 mb-1">{stats.dueCards}</div>
-            <div className="text-sm font-medium text-gray-700">Due for Review</div>
+            <div className="text-2xl font-semibold text-foreground">{stats.dueCards}</div>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-md p-6 border border-blue-200 hover:shadow-lg transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center shadow-sm">
-                <BookOpen className="w-5 h-5 text-white" />
+          <div className="bg-card rounded-lg border border-border p-5 shadow-card hover:shadow-card-hover transition-shadow">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-accent-subtle text-accent">
+                <BookOpen className="w-[18px] h-[18px]" />
               </div>
+              <span className="text-sm font-medium text-secondary">Total Cards</span>
             </div>
-            <div className="text-3xl font-bold text-gray-900 mb-1">{stats.totalCards}</div>
-            <div className="text-sm font-medium text-gray-700">Total Cards</div>
+            <div className="text-2xl font-semibold text-foreground">{stats.totalCards}</div>
           </div>
 
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-md p-6 border border-green-200 hover:shadow-lg transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center shadow-sm">
-                <Target className="w-5 h-5 text-white" />
+          <div className="bg-card rounded-lg border border-border p-5 shadow-card hover:shadow-card-hover transition-shadow">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-success-subtle text-success">
+                <Target className="w-[18px] h-[18px]" />
               </div>
+              <span className="text-sm font-medium text-secondary">Reviewed Today</span>
             </div>
-            <div className="text-3xl font-bold text-gray-900 mb-1">{stats.reviewedToday}</div>
-            <div className="text-sm font-medium text-gray-700">Reviewed Today</div>
+            <div className="text-2xl font-semibold text-foreground">{stats.reviewedToday}</div>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 mb-8">
+        <div className="flex gap-3 mb-6">
           <Link
             href="/review"
-            className="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-2 shadow-md hover:shadow-lg"
+            className="bg-accent text-white px-5 py-2.5 rounded-lg font-medium hover:bg-accent-hover transition-colors flex items-center gap-2 shadow-sm"
           >
-            <Play className="w-5 h-5" />
+            <Play className="w-4 h-4" />
             Start Review ({stats.dueCards} due)
           </Link>
-          
-          {streak.currentStreak > 0 && (
-            <Link
-              href="/stats"
-              className="bg-white text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center gap-2 shadow-md border border-gray-200"
-            >
-              <BarChart3 className="w-5 h-5" />
-              View Analytics
-            </Link>
-          )}
+          <Link
+            href="/stats"
+            className="bg-card text-foreground px-5 py-2.5 rounded-lg font-medium hover:bg-subtle transition-colors flex items-center gap-2 border border-border"
+          >
+            <BarChart3 className="w-4 h-4" />
+            Analytics
+          </Link>
         </div>
         
         {/* Streak Badge */}
         {streak.currentStreak > 0 && (
-          <div className="bg-gradient-to-r from-orange-100 to-red-100 border border-orange-300 rounded-xl p-4 mb-8 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                <Flame className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">{streak.currentStreak} Day Streak! 🎉</div>
-                <div className="text-sm text-gray-700">Keep it up! Longest: {streak.longestStreak} days</div>
-              </div>
+          <div className="bg-warning-subtle border border-[var(--warning)] rounded-lg p-4 mb-6 flex items-center gap-4">
+            <div className="w-10 h-10 bg-warning rounded-lg flex items-center justify-center">
+              <Flame className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <div className="text-lg font-semibold text-foreground">{streak.currentStreak} Day Streak!</div>
+              <div className="text-sm text-secondary">Longest: {streak.longestStreak} days</div>
             </div>
           </div>
         )}
 
         {/* Concepts List */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900">Learning Concepts</h2>
+        <div className="bg-card rounded-lg border border-border shadow-card">
+          <div className="px-5 py-4 border-b border-border">
+            <h2 className="text-lg font-semibold text-foreground">Learning Concepts</h2>
           </div>
 
-          <div className="divide-y divide-gray-200">
+          <div className="divide-y divide-border">
             {concepts.map((concept) => (
-              <div key={concept.id} className="p-6">
-                <Link href={`/concepts/${concept.id}`} className="block mb-3 group">
-                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors flex items-center gap-2">
+              <div key={concept.id} className="px-5 py-4">
+                <Link href={`/concepts/${concept.id}`} className="block mb-2 group">
+                  <h3 className="font-medium text-foreground mb-1 group-hover:text-accent transition-colors flex items-center gap-2">
                     {concept.name}
-                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </h3>
-                  <p className="text-gray-600 text-sm mb-3">{concept.description}</p>
-                  <div className="flex gap-4 text-sm text-gray-600">
+                  <p className="text-secondary text-sm mb-2 line-clamp-2">{concept.description}</p>
+                  <div className="flex gap-4 text-sm text-tertiary">
                     <span className="flex items-center gap-1.5">
-                      <BookOpen className="w-4 h-4" /> {concept.flashcardCount} flashcards
+                      <BookOpen className="w-3.5 h-3.5" /> {concept.flashcardCount} flashcards
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Code className="w-4 h-4" /> {concept.challengeCount} challenges
+                      <Code className="w-3.5 h-3.5" /> {concept.challengeCount} challenges
                     </span>
                   </div>
                 </Link>
@@ -225,7 +251,7 @@ export default function GuestDashboard() {
                 {concept.challengeCount > 0 && (
                   <button
                     onClick={() => toggleChallenges(concept.id)}
-                    className="text-indigo-600 hover:text-indigo-700 text-sm font-medium flex items-center gap-1.5 transition-colors"
+                    className="text-accent hover:text-accent-hover text-sm font-medium flex items-center gap-1.5 transition-colors mt-2"
                   >
                     {concept.showChallenges ? (
                       <><ChevronUp className="w-4 h-4" /> Hide Challenges</>
@@ -236,21 +262,21 @@ export default function GuestDashboard() {
                 )}
                 
                 {concept.showChallenges && concept.challenges && (
-                  <div className="mt-4 space-y-2">
+                  <div className="mt-3 space-y-2">
                     {concept.challenges.map((challenge) => (
                       <Link
                         key={challenge.id}
                         href={`/challenges/${challenge.id}`}
-                        className="block p-3 bg-gray-50 hover:bg-indigo-50 rounded-lg transition-colors border border-gray-200 hover:border-indigo-300 group"
+                        className="block p-3 bg-subtle hover:bg-muted rounded-lg transition-colors border border-border group"
                       >
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="font-medium text-gray-900">{challenge.title}</div>
-                            <div className="text-sm text-gray-600">
+                            <div className="font-medium text-foreground text-sm">{challenge.title}</div>
+                            <div className="text-xs text-secondary">
                               Stage {challenge.stage} • {challenge.difficulty}
                             </div>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <ArrowRight className="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                       </Link>
                     ))}
@@ -260,7 +286,7 @@ export default function GuestDashboard() {
             ))}
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

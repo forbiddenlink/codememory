@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
@@ -39,6 +39,7 @@ interface TestResult {
 export default function ChallengePage() {
   const params = useParams();
   const router = useRouter();
+  const challengeId = Array.isArray(params.id) ? params.id[0] : params.id;
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
@@ -46,13 +47,11 @@ export default function ChallengePage() {
   const [showHints, setShowHints] = useState(false);
   const [testResults, setTestResults] = useState<TestResult[]>([]);
 
-  useEffect(() => {
-    loadChallenge();
-  }, [params.id]);
+  const loadChallenge = useCallback(async () => {
+    if (!challengeId) return;
 
-  async function loadChallenge() {
     try {
-      const response = await fetch(`/api/challenges/${params.id}`);
+      const response = await fetch(`/api/challenges/${challengeId}`);
       if (response.ok) {
         const data = await response.json();
         setChallenge(data.challenge);
@@ -61,7 +60,11 @@ export default function ChallengePage() {
     } catch (error) {
       console.error("Failed to load challenge:", error);
     }
-  }
+  }, [challengeId]);
+
+  useEffect(() => {
+    void loadChallenge();
+  }, [loadChallenge]);
 
   async function runCode() {
     if (!challenge) return;

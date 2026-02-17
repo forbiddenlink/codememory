@@ -114,7 +114,7 @@ export default async function AdminPage() {
             </h2>
           </div>
           {concepts.length === 0 ? (
-            <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+            <div className="p-8 text-center text-gray-600 dark:text-gray-400">
               No concepts yet. Create your first concept to get started!
             </div>
           ) : (
@@ -138,14 +138,14 @@ export default async function AdminPage() {
                             {concept.language}
                           </span>
                         )}
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-gray-600">
                           Difficulty: {concept.difficulty}/5
                         </span>
                       </div>
                       <p className="text-gray-600 dark:text-gray-400 mb-3">
                         {concept.description}
                       </p>
-                      <div className="flex gap-4 text-sm text-gray-500">
+                      <div className="flex gap-4 text-sm text-gray-600">
                         <span>
                           📚 {concept._count.flashcards} flashcards
                         </span>
@@ -189,7 +189,7 @@ export default async function AdminPage() {
             </h3>
             <ol className="list-decimal list-inside space-y-2 text-yellow-700 dark:text-yellow-300">
               <li>
-                <strong>Create a Concept</strong> - Choose something you're
+                <strong>Create a Concept</strong> - Choose something you&apos;re
                 learning right now
               </li>
               <li>

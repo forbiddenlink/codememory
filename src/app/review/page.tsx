@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { getDueCards, updateCardProgress, getCardProgress, addReviewToHistory } from "@/lib/guest-store";
@@ -44,40 +44,7 @@ export default function ReviewPage() {
   const [submitting, setSubmitting] = useState(false);
   const [isGuest, setIsGuest] = useState(false);
 
-  useEffect(() => {
-    fetchDueCards();
-  }, [session]);
-
-  // Keyboard shortcuts
-  useEffect(() => {
-    function handleKeyPress(e: KeyboardEvent) {
-      if (submitting) return;
-
-      if (e.key === " " || e.key === "Enter") {
-        e.preventDefault();
-        if (!showAnswer) {
-          setShowAnswer(true);
-        }
-      } else if (showAnswer) {
-        const ratingMap: Record<string, number> = {
-          "1": 1,
-          "2": 2,
-          "3": 3,
-          "4": 4,
-        };
-
-        if (ratingMap[e.key]) {
-          e.preventDefault();
-          handleReview(ratingMap[e.key]);
-        }
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyPress);
-    return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [showAnswer, submitting]);
-
-  const fetchDueCards = async () => {
+  const fetchDueCards = useCallback(async () => {
     try {
       if (!session) {
         setIsGuest(true);
@@ -117,13 +84,17 @@ export default function ReviewPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router, session]);
 
-  const handleReview = async (rating: number) => {
+  const handleReview = useCallback(async (rating: number) => {
     if (submitting) return;
 
     setSubmitting(true);
     const currentCard = cards[currentIndex];
+    if (!currentCard) {
+      setSubmitting(false);
+      return;
+    }
 
     try {
       if (isGuest) {
@@ -177,7 +148,40 @@ export default function ReviewPage() {
     } finally {
       setSubmitting(false);
     }
-  };
+  }, [cards, currentIndex, isGuest, router, submitting]);
+
+  useEffect(() => {
+    void fetchDueCards();
+  }, [fetchDueCards]);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    function handleKeyPress(e: KeyboardEvent) {
+      if (submitting) return;
+
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        if (!showAnswer) {
+          setShowAnswer(true);
+        }
+      } else if (showAnswer) {
+        const ratingMap: Record<string, number> = {
+          "1": 1,
+          "2": 2,
+          "3": 3,
+          "4": 4,
+        };
+
+        if (ratingMap[e.key]) {
+          e.preventDefault();
+          void handleReview(ratingMap[e.key]);
+        }
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [handleReview, showAnswer, submitting]);
 
   if (loading) {
     return <LoadingState />;
@@ -191,16 +195,17 @@ export default function ReviewPage() {
   const { flashcard } = currentCard;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-background">
       <ReviewNav currentIndex={currentIndex} totalCards={cards.length} />
 
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-6">
+        <h1 className="sr-only">Review Session</h1>
         <div className="mb-4">
-          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+          <div className="text-xs text-tertiary mb-1">
             {flashcard.concept.category}
             {flashcard.concept.language && ` • ${flashcard.concept.language}`}
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-lg font-semibold text-foreground">
             {flashcard.concept.name}
           </h2>
         </div>
@@ -216,9 +221,9 @@ export default function ReviewPage() {
           <div className="flex justify-center">
             <button
               onClick={() => setShowAnswer(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg transition-colors text-lg"
+              className="bg-accent hover:bg-accent-hover text-white font-medium px-6 py-2.5 rounded-lg transition-colors"
             >
-              Show Answer <span className="text-sm ml-2">(Space / Enter)</span>
+              Show Answer <span className="text-xs ml-2 opacity-75">(Space)</span>
             </button>
           </div>
         ) : (

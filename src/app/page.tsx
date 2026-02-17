@@ -1,8 +1,18 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Link from "next/link";
 import { Brain, Code, Github, Sparkles, BookOpen } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Master Web Development with Spaced Repetition",
+  description:
+    "Practice web development fundamentals with adaptive spaced repetition, coding challenges, and a zero-friction guest mode that works instantly.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -14,48 +24,45 @@ export default async function Home() {
 
   // Show landing page with guest + auth options
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8">
-        <div className="text-center mb-8">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Code<span className="text-indigo-600">Memory</span>
+    <main className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="max-w-lg w-full bg-card rounded-lg border border-border shadow-card p-8">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl font-semibold text-foreground mb-2">
+            Code<span className="text-accent">Memory</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-2">
+          <p className="text-secondary">
             Master web development through spaced repetition
-          </p>
-          <p className="text-gray-500">
-            Where forgetting shows up as failing tests
           </p>
         </div>
 
-        <div className="space-y-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0 w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-indigo-600" />
+        <div className="space-y-3 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-accent-subtle text-accent">
+              <BookOpen className="w-[18px] h-[18px]" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Learn Real Skills</h3>
-              <p className="text-gray-600">JavaScript, React, CSS, Python, and more</p>
+              <p className="font-medium text-foreground text-sm">Learn Real Skills</p>
+              <p className="text-secondary text-xs">JavaScript, React, CSS, Python</p>
             </div>
           </div>
 
-          <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-              <Brain className="w-5 h-5 text-purple-600" />
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-accent-subtle text-accent">
+              <Brain className="w-[18px] h-[18px]" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Scientific Scheduling</h3>
-              <p className="text-gray-600">FSRS algorithm optimizes your review timing</p>
+              <p className="font-medium text-foreground text-sm">Scientific Scheduling</p>
+              <p className="text-secondary text-xs">FSRS algorithm optimizes review timing</p>
             </div>
           </div>
 
-          <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-              <Code className="w-5 h-5 text-green-600" />
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-accent-subtle text-accent">
+              <Code className="w-[18px] h-[18px]" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Code Challenges</h3>
-              <p className="text-gray-600">Practice with real coding problems</p>
+              <p className="font-medium text-foreground text-sm">Code Challenges</p>
+              <p className="text-secondary text-xs">Practice with real coding problems</p>
             </div>
           </div>
         </div>
@@ -63,38 +70,48 @@ export default async function Home() {
         {/* Primary CTA: Guest Mode */}
         <Link
           href="/dashboard"
-          className="w-full bg-indigo-600 text-white rounded-lg px-6 py-4 font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 mb-4 shadow-lg hover:shadow-xl"
+          className="w-full bg-accent text-white rounded-lg px-6 py-3 font-medium hover:bg-accent-hover transition-colors flex items-center justify-center gap-2 mb-3"
         >
-          <Sparkles className="w-5 h-5" />
+          <Sparkles className="w-4 h-4" />
           <span>Continue as Guest</span>
         </Link>
 
-        <p className="text-center text-sm text-gray-500 mb-4">
-          Try it instantly • No sign-up required • Progress saved in your browser
+        <p className="text-center text-xs text-tertiary mb-4">
+          Try instantly • No sign-up • Progress saved locally
         </p>
 
         {/* Secondary CTA: GitHub Sign In */}
         <div className="relative mb-4">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
+            <div className="w-full border-t border-border"></div>
           </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500">or</span>
+          <div className="relative flex justify-center text-xs">
+            <span className="px-2 bg-card text-tertiary">or</span>
           </div>
         </div>
 
-        <a
-          href="/api/auth/signin"
-          className="w-full bg-gray-900 text-white rounded-lg px-6 py-3 font-semibold hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-        >
-          <Github className="w-5 h-5" />
-          <span>Sign in with GitHub</span>
-        </a>
+        <form action="/api/auth/signin">
+          <button
+            type="submit"
+            className="w-full bg-foreground text-background rounded-lg px-6 py-2.5 font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+          >
+            <Github className="w-4 h-4" />
+            <span>Sign in with GitHub</span>
+          </button>
+        </form>
 
-        <p className="text-center text-xs text-gray-500 mt-4">
-          Sign in to sync progress across devices
+        <p className="text-center text-xs text-tertiary mt-3">
+          Sync progress across devices
         </p>
+
+        <section className="mt-6 pt-5 border-t border-border text-left">
+          <h2 className="text-base font-semibold text-foreground mb-2">How It Works</h2>
+          <p className="text-secondary text-sm">
+            Actively retrieve information through prompts, rate your recall, and the FSRS algorithm
+            schedules reviews when they’re most effective for memory formation.
+          </p>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

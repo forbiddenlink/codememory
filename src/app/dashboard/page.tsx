@@ -1,8 +1,18 @@
+import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 import GuestDashboard from "@/components/guest-dashboard";
+
+export const metadata: Metadata = {
+  title: "Your Learning Dashboard and Daily Reviews",
+  description:
+    "View due cards, track concept mastery, and jump into review sessions from your personalized CodeMemory learning dashboard.",
+  alternates: {
+    canonical: "/dashboard",
+  },
+};
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
@@ -56,15 +66,23 @@ export default async function Dashboard() {
               CodeMemory
             </h1>
             <div className="flex items-center gap-4">
+              <Link href="/review" className="text-sm text-blue-600 hover:text-blue-700">
+                Review
+              </Link>
+              <Link href="/stats" className="text-sm text-blue-600 hover:text-blue-700">
+                Analytics
+              </Link>
               <span className="text-sm text-gray-600 dark:text-gray-400">
                 {session.user.name || session.user.email}
               </span>
-              <a
-                href="/api/auth/signout"
-                className="text-sm text-red-600 hover:text-red-700"
-              >
-                Sign out
-              </a>
+              <form action="/api/auth/signout">
+                <button
+                  type="submit"
+                  className="text-sm text-red-600 hover:text-red-700"
+                >
+                  Sign out
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -75,6 +93,9 @@ export default async function Dashboard() {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Welcome back!
           </h2>
+          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+            By CodeMemory Team
+          </p>
           <p className="text-gray-600 dark:text-gray-400">
             Ready to strengthen your memory?
           </p>
@@ -101,7 +122,7 @@ export default async function Dashboard() {
             )}
           </div>
           {dueCards === 0 && (
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400">
               Great job! No cards due right now. Check back later or explore challenges.
             </p>
           )}
@@ -163,7 +184,7 @@ export default async function Dashboard() {
                     <div className="text-lg font-bold text-blue-600">
                       {Math.round(userMastery.masteryLevel)}%
                     </div>
-                    <div className="text-xs text-gray-500">mastery</div>
+                    <div className="text-xs text-gray-600">mastery</div>
                   </div>
                 </div>
               ))}
@@ -182,6 +203,28 @@ export default async function Dashboard() {
             </p>
           </div>
         )}
+
+        <section className="mt-8 rounded-lg bg-white dark:bg-gray-800 shadow p-6">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+            How To Use Your Dashboard
+          </h3>
+          <p className="text-gray-700 dark:text-gray-200 mb-3">
+            Treat this page as your daily control center. The due-card count shows what needs active
+            retrieval now, while concept summaries show where mastery is growing over time. If the
+            due queue is large, prioritize consistency over volume: short, regular sessions usually
+            produce better retention than occasional long sessions.
+          </p>
+          <p className="text-gray-700 dark:text-gray-200 mb-3">
+            After each review, check the concepts in progress section for weak areas. If mastery is
+            stagnating, switch to targeted challenge work in that concept before returning to cards.
+            This alternation helps connect abstract recall to practical coding behavior.
+          </p>
+          <p className="text-gray-700 dark:text-gray-200">
+            As your deck grows, use analytics to watch streak stability, response quality, and total
+            review throughput. The goal is not perfection on every card; the goal is steady,
+            compounding recall of the concepts you actually use in development work.
+          </p>
+        </section>
       </main>
     </div>
   );
