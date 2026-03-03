@@ -15,8 +15,8 @@ export default async function AdminPage() {
     where: { email: session.user.email },
   });
 
-  if (!user) {
-    redirect("/");
+  if (!user || !user.isAdmin) {
+    redirect("/dashboard");
   }
 
   // Get content statistics
@@ -39,16 +39,16 @@ export default async function AdminPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <nav className="bg-white dark:bg-gray-800 shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-background">
+      <nav className="bg-card border-b border-border">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex justify-between h-14 items-center">
+            <h1 className="text-lg font-semibold text-foreground">
               Content Admin
             </h1>
             <Link
               href="/dashboard"
-              className="text-blue-600 hover:text-blue-700"
+              className="text-sm text-accent hover:text-accent-hover transition-colors"
             >
               ← Back to Dashboard
             </Link>
@@ -56,50 +56,50 @@ export default async function AdminPage() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-5xl mx-auto px-6 py-8">
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <div className="text-3xl font-bold text-blue-600">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="bg-card rounded-lg border border-border shadow-card p-5">
+            <div className="text-2xl font-semibold text-accent">
               {conceptCount}
             </div>
-            <div className="text-gray-600 dark:text-gray-400">Concepts</div>
+            <div className="text-sm text-secondary">Concepts</div>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <div className="text-3xl font-bold text-green-600">
+          <div className="bg-card rounded-lg border border-border shadow-card p-5">
+            <div className="text-2xl font-semibold text-success">
               {flashcardCount}
             </div>
-            <div className="text-gray-600 dark:text-gray-400">Flashcards</div>
+            <div className="text-sm text-secondary">Flashcards</div>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <div className="text-3xl font-bold text-purple-600">
+          <div className="bg-card rounded-lg border border-border shadow-card p-5">
+            <div className="text-2xl font-semibold text-foreground">
               {challengeCount}
             </div>
-            <div className="text-gray-600 dark:text-gray-400">Challenges</div>
+            <div className="text-sm text-secondary">Challenges</div>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="bg-card rounded-lg border border-border shadow-card p-5 mb-6">
+          <h2 className="text-base font-semibold text-foreground mb-4">
             Create New Content
           </h2>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-3">
             <Link
               href="/admin/concepts/new"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="bg-accent hover:bg-accent-hover text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm"
             >
               + New Concept
             </Link>
             <Link
               href="/admin/flashcards/new"
-              className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="bg-card text-foreground font-medium px-5 py-2.5 rounded-lg border border-border hover:bg-subtle transition-colors text-sm"
             >
               + New Flashcard
             </Link>
             <Link
               href="/admin/challenges/new"
-              className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="bg-card text-foreground font-medium px-5 py-2.5 rounded-lg border border-border hover:bg-subtle transition-colors text-sm"
             >
               + New Challenge
             </Link>
@@ -107,69 +107,65 @@ export default async function AdminPage() {
         </div>
 
         {/* Concepts List */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+        <div className="bg-card rounded-lg border border-border shadow-card">
+          <div className="px-5 py-4 border-b border-border">
+            <h2 className="text-lg font-semibold text-foreground">
               All Concepts
             </h2>
           </div>
           {concepts.length === 0 ? (
-            <div className="p-8 text-center text-gray-600 dark:text-gray-400">
+            <div className="p-8 text-center text-secondary text-sm">
               No concepts yet. Create your first concept to get started!
             </div>
           ) : (
-            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+            <div className="divide-y divide-border">
               {concepts.map((concept) => (
                 <div
                   key={concept.id}
-                  className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="px-5 py-4 hover:bg-subtle transition-colors"
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-medium text-foreground">
                           {concept.name}
                         </h3>
-                        <span className="text-sm px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded">
+                        <span className="text-xs px-2 py-0.5 bg-accent-subtle text-accent rounded font-medium">
                           {concept.category}
                         </span>
                         {concept.language && (
-                          <span className="text-sm px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded">
+                          <span className="text-xs px-2 py-0.5 bg-subtle text-secondary rounded font-medium">
                             {concept.language}
                           </span>
                         )}
-                        <span className="text-sm text-gray-600">
+                        <span className="text-xs text-tertiary">
                           Difficulty: {concept.difficulty}/5
                         </span>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-400 mb-3">
+                      <p className="text-secondary text-sm mb-2">
                         {concept.description}
                       </p>
-                      <div className="flex gap-4 text-sm text-gray-600">
-                        <span>
-                          📚 {concept._count.flashcards} flashcards
-                        </span>
-                        <span>
-                          🎯 {concept._count.challenges} challenges
-                        </span>
+                      <div className="flex gap-4 text-xs text-tertiary">
+                        <span>{concept._count.flashcards} flashcards</span>
+                        <span>{concept._count.challenges} challenges</span>
                       </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-1">
                       <Link
                         href={`/admin/concepts/${concept.id}/edit`}
-                        className="text-blue-600 hover:text-blue-700 px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-blue-900"
+                        className="text-accent hover:text-accent-hover px-3 py-1.5 rounded-lg hover:bg-accent-subtle text-sm transition-colors"
                       >
                         Edit
                       </Link>
                       <Link
                         href={`/admin/flashcards/new?conceptId=${concept.id}`}
-                        className="text-green-600 hover:text-green-700 px-4 py-2 rounded hover:bg-green-50 dark:hover:bg-green-900"
+                        className="text-secondary hover:text-foreground px-3 py-1.5 rounded-lg hover:bg-subtle text-sm transition-colors"
                       >
                         + Flashcard
                       </Link>
                       <Link
                         href={`/admin/challenges/new?conceptId=${concept.id}`}
-                        className="text-purple-600 hover:text-purple-700 px-4 py-2 rounded hover:bg-purple-50 dark:hover:bg-purple-900"
+                        className="text-secondary hover:text-foreground px-3 py-1.5 rounded-lg hover:bg-subtle text-sm transition-colors"
                       >
                         + Challenge
                       </Link>
@@ -183,31 +179,16 @@ export default async function AdminPage() {
 
         {/* Quick Start Guide */}
         {conceptCount === 0 && (
-          <div className="mt-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-200 mb-3">
-              🚀 Quick Start Guide
+          <div className="mt-6 bg-warning-subtle border border-[var(--warning)] rounded-lg p-5">
+            <h3 className="text-base font-semibold text-foreground mb-2">
+              Quick Start Guide
             </h3>
-            <ol className="list-decimal list-inside space-y-2 text-yellow-700 dark:text-yellow-300">
-              <li>
-                <strong>Create a Concept</strong> - Choose something you&apos;re
-                learning right now
-              </li>
-              <li>
-                <strong>Add 10 Flashcards</strong> - 2 of each type (syntax,
-                concept, prediction, bug, use_case)
-              </li>
-              <li>
-                <strong>Add 5 Challenges</strong> - One for each stage (1-5
-                difficulty)
-              </li>
-              <li>
-                <strong>Initialize Progress</strong> - Visit the concept in your
-                dashboard to create card progress entries
-              </li>
-              <li>
-                <strong>Start Learning</strong> - Review cards and complete
-                challenges!
-              </li>
+            <ol className="list-decimal list-inside space-y-1.5 text-secondary text-sm">
+              <li><strong>Create a Concept</strong> — Choose something you&apos;re learning</li>
+              <li><strong>Add 10 Flashcards</strong> — 2 of each type (syntax, concept, prediction, bug, use_case)</li>
+              <li><strong>Add 5 Challenges</strong> — One for each stage (1-5)</li>
+              <li><strong>Initialize Progress</strong> — Visit the concept in the dashboard</li>
+              <li><strong>Start Learning</strong> — Review cards and complete challenges</li>
             </ol>
           </div>
         )}

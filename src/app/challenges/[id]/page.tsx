@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 // Dynamically import Monaco Editor (client-side only)
 const Editor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false,
-  loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded" />,
+  loading: () => <div className="h-96 bg-subtle animate-pulse rounded" />,
 });
 
 interface Challenge {
@@ -116,53 +116,53 @@ export default function ChallengePage() {
 
   if (!challenge) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-600">Loading challenge...</div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-secondary">Loading challenge...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto p-8">
+    <div className="min-h-screen bg-background">
+      <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-6">
           <button
             onClick={() => router.back()}
-            className="text-indigo-600 hover:text-indigo-700 mb-4 flex items-center"
+            className="text-accent hover:text-accent-hover mb-4 flex items-center text-sm font-medium transition-colors"
           >
             ← Back
           </button>
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-card rounded-lg border border-border shadow-card p-6">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                <h1 className="text-xl font-semibold text-foreground mb-1">
                   {challenge.title}
                 </h1>
-                <p className="text-gray-600">{challenge.concept.name}</p>
+                <p className="text-secondary text-sm">{challenge.concept.name}</p>
               </div>
               <div className="flex gap-2">
-                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                <span className="px-2.5 py-1 bg-accent-subtle text-accent rounded-full text-xs font-medium">
                   Stage {challenge.stage}
                 </span>
-                <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">
+                <span className="px-2.5 py-1 bg-subtle text-secondary rounded-full text-xs font-medium">
                   {challenge.difficulty}
                 </span>
               </div>
             </div>
-            <p className="text-gray-700 mb-4">{challenge.description}</p>
+            <p className="text-secondary text-sm mb-4">{challenge.description}</p>
 
             {/* Hints */}
             <button
               onClick={() => setShowHints(!showHints)}
-              className="text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+              className="text-accent hover:text-accent-hover text-sm font-medium transition-colors"
             >
               {showHints ? "Hide" : "Show"} Hints ({challenge.hints.length})
             </button>
             {showHints && (
               <ul className="mt-2 space-y-1">
                 {challenge.hints.map((hint, i) => (
-                  <li key={i} className="text-sm text-gray-600">
+                  <li key={i} className="text-sm text-secondary">
                     💡 {hint}
                   </li>
                 ))}
@@ -172,25 +172,25 @@ export default function ChallengePage() {
         </div>
 
         {/* Editor */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-lg shadow p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div className="bg-card rounded-lg border border-border shadow-card p-5">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Code</h2>
+              <h2 className="text-base font-semibold text-foreground">Code</h2>
               <div className="flex gap-2">
                 <button
                   onClick={() => setCode(challenge.starterCode)}
-                  className="text-gray-600 hover:text-gray-800 px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50 transition-colors"
+                  className="text-secondary hover:text-foreground px-3 py-1 text-sm border border-border rounded-lg hover:bg-subtle transition-colors"
                 >
                   Reset
                 </button>
                 <button
                   onClick={runCode}
                   disabled={isRunning}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     allTestsPassed
-                      ? "bg-green-600 text-white hover:bg-green-700"
-                      : "bg-indigo-600 text-white hover:bg-indigo-700"
-                  } disabled:bg-gray-400`}
+                      ? "bg-success text-white hover:opacity-90"
+                      : "bg-accent text-white hover:bg-accent-hover"
+                  } disabled:opacity-50`}
                 >
                   {isRunning ? "Running..." : allTestsPassed ? "✓ Tests Passed" : "Run Code"}
                 </button>
@@ -213,37 +213,37 @@ export default function ChallengePage() {
           </div>
 
           {/* Output */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Output</h2>
+          <div className="bg-card rounded-lg border border-border shadow-card p-5">
+            <h2 className="text-base font-semibold text-foreground mb-4">Output</h2>
             
             {/* Test Results */}
             {testResults.length > 0 && (
               <div className="mb-4">
-                <h3 className="font-medium text-gray-700 mb-2">Test Results:</h3>
+                <h3 className="text-sm font-medium text-secondary mb-2">Test Results:</h3>
                 <div className="space-y-2">
                   {testResults.map((result, i) => (
                     <div
                       key={i}
                       className={`p-3 rounded-lg ${
                         result.passed
-                          ? "bg-green-50 border border-green-200"
-                          : "bg-red-50 border border-red-200"
+                          ? "bg-success-subtle border border-[var(--success)]"
+                          : "bg-error-subtle border border-[var(--error)]"
                       }`}
                     >
                       <div
-                        className={`flex items-center gap-2 font-medium ${
-                          result.passed ? "text-green-800" : "text-red-800"
+                        className={`flex items-center gap-2 font-medium text-sm ${
+                          result.passed ? "text-success" : "text-error"
                         }`}
                       >
                         <span>{result.passed ? "✓" : "✗"}</span>
-                        <span className="text-sm">{result.message}</span>
+                        <span>{result.message}</span>
                       </div>
                       {!result.passed && (
-                        <div className="mt-2 text-xs space-y-1">
-                          <div className="text-gray-700">
+                        <div className="mt-2 text-xs space-y-1 text-secondary">
+                          <div>
                             <strong>Expected:</strong> {result.expected}
                           </div>
-                          <div className="text-gray-700">
+                          <div>
                             <strong>Got:</strong> {result.actual}
                           </div>
                         </div>
@@ -252,23 +252,23 @@ export default function ChallengePage() {
                   ))}
                 </div>
                 {testResults.every((r) => r.passed) && (
-                  <div className="mt-3 p-3 bg-green-100 border border-green-300 rounded-lg text-green-800 font-medium text-center">
-                    🎉 All tests passed! Great job!
+                  <div className="mt-3 p-3 bg-success-subtle border border-[var(--success)] rounded-lg text-success font-medium text-center text-sm">
+                    All tests passed!
                   </div>
                 )}
               </div>
             )}
 
             {/* Console Output */}
-            <div className="bg-gray-900 text-gray-100 p-4 rounded font-mono text-sm h-64 overflow-auto">
+            <div className="bg-[var(--bg-code)] text-[var(--text-code)] p-4 rounded-lg font-mono text-sm h-64 overflow-auto">
               {output || "Run your code to see output..."}
             </div>
 
             {/* Expected Test Cases */}
             <div className="mt-4">
-              <h3 className="font-medium text-gray-700 mb-2">Test Cases:</h3>
+              <h3 className="text-sm font-medium text-secondary mb-2">Test Cases:</h3>
               {challenge.testCases.map((test, i) => (
-                <div key={i} className="text-sm text-gray-600 mb-1">
+                <div key={i} className="text-sm text-secondary mb-1">
                   <strong>Input:</strong> {test.input} →{" "}
                   <strong>Expected:</strong> {test.expected}
                 </div>

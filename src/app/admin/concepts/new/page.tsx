@@ -44,36 +44,35 @@ export default function NewConceptPage() {
     }
   };
 
+  const inputClasses = "w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-tertiary focus:ring-2 focus:ring-accent focus:border-transparent transition-colors text-sm";
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <nav className="bg-white dark:bg-gray-800 shadow">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-background">
+      <nav className="bg-card border-b border-border">
+        <div className="max-w-2xl mx-auto px-6">
+          <div className="flex justify-between h-14 items-center">
+            <h1 className="text-lg font-semibold text-foreground">
               Create New Concept
             </h1>
-            <Link href="/admin" className="text-blue-600 hover:text-blue-700">
+            <Link href="/admin" className="text-sm text-accent hover:text-accent-hover transition-colors">
               ← Back
             </Link>
           </div>
         </div>
       </nav>
 
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <main className="max-w-2xl mx-auto px-6 py-8">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 p-4 rounded-lg">
+            <div className="bg-error-subtle border border-[var(--error)] text-error p-3 rounded-lg text-sm">
               {error}
             </div>
           )}
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 space-y-6">
+          <div className="bg-card rounded-lg border border-border shadow-card p-5 space-y-5">
             {/* Name */}
             <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-              >
+              <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1.5">
                 Concept Name *
               </label>
               <input
@@ -82,16 +81,13 @@ export default function NewConceptPage() {
                 name="name"
                 required
                 placeholder="e.g., JavaScript Promises"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className={inputClasses}
               />
             </div>
 
             {/* Category */}
             <div>
-              <label
-                htmlFor="category"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-              >
+              <label htmlFor="category" className="block text-sm font-medium text-foreground mb-1.5">
                 Category *
               </label>
               <input
@@ -100,16 +96,13 @@ export default function NewConceptPage() {
                 name="category"
                 required
                 placeholder="e.g., Async Programming, Data Structures, etc."
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className={inputClasses}
               />
             </div>
 
             {/* Language */}
             <div>
-              <label
-                htmlFor="language"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-              >
+              <label htmlFor="language" className="block text-sm font-medium text-foreground mb-1.5">
                 Programming Language
               </label>
               <input
@@ -117,19 +110,16 @@ export default function NewConceptPage() {
                 id="language"
                 name="language"
                 placeholder="e.g., JavaScript, Python, TypeScript"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className={inputClasses}
               />
-              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Optional - Leave blank for language-agnostic concepts
+              <p className="mt-1 text-xs text-tertiary">
+                Optional — Leave blank for language-agnostic concepts
               </p>
             </div>
 
             {/* Difficulty */}
             <div>
-              <label
-                htmlFor="difficulty"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-              >
+              <label htmlFor="difficulty" className="block text-sm font-medium text-foreground mb-1.5">
                 Difficulty Level *
               </label>
               <select
@@ -137,7 +127,7 @@ export default function NewConceptPage() {
                 name="difficulty"
                 required
                 defaultValue="2"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className={inputClasses}
               >
                 <option value="1">1 - Beginner</option>
                 <option value="2">2 - Intermediate</option>
@@ -149,10 +139,7 @@ export default function NewConceptPage() {
 
             {/* Description */}
             <div>
-              <label
-                htmlFor="description"
-                className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2"
-              >
+              <label htmlFor="description" className="block text-sm font-medium text-foreground mb-1.5">
                 Description *
               </label>
               <textarea
@@ -161,23 +148,23 @@ export default function NewConceptPage() {
                 required
                 rows={4}
                 placeholder="What will students learn from this concept?"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className={inputClasses}
               />
             </div>
           </div>
 
           {/* Submit */}
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="flex-1 bg-accent hover:bg-accent-hover disabled:opacity-50 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm"
             >
               {loading ? "Creating..." : "Create Concept"}
             </button>
             <Link
               href="/admin"
-              className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              className="px-5 py-2.5 border border-border rounded-lg hover:bg-subtle transition-colors text-sm text-secondary"
             >
               Cancel
             </Link>
@@ -185,11 +172,11 @@ export default function NewConceptPage() {
         </form>
 
         {/* Helper Text */}
-        <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2">
-            💡 Content Guidelines
+        <div className="mt-6 bg-accent-subtle border border-accent rounded-lg p-5">
+          <h3 className="text-sm font-semibold text-foreground mb-2">
+            Content Guidelines
           </h3>
-          <ul className="list-disc list-inside space-y-1 text-blue-700 dark:text-blue-300">
+          <ul className="list-disc list-inside space-y-1 text-secondary text-sm">
             <li>Choose concepts you&apos;re actively learning or want to master</li>
             <li>Each concept should have 10 flashcards (2 of each type)</li>
             <li>Each concept should have 5 challenges (stages 1-5)</li>

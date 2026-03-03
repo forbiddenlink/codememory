@@ -28,77 +28,67 @@ export default function PrivacyPolicyPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 px-4 py-10 sm:px-6 lg:px-8">
-      <article className="mx-auto max-w-3xl rounded-xl bg-white p-8 shadow-sm">
-        <h1 className="mb-2 text-3xl font-bold text-gray-900">Privacy Policy</h1>
-        <p className="mb-6 text-sm text-gray-600">
-          By <span className="font-medium">CodeMemory Team</span> • Effective date:{" "}
-          <time dateTime="2026-02-16">February 16, 2026</time>
+    <main className="min-h-screen bg-background px-4 py-10 sm:px-6 lg:px-8">
+      <article className="mx-auto max-w-2xl rounded-lg bg-card border border-border p-8 shadow-card">
+        <h1 className="mb-1 text-2xl font-semibold text-foreground">Privacy Policy</h1>
+        <p className="mb-5 text-sm text-tertiary">
+          Effective date: <time dateTime="2026-02-16">February 16, 2026</time>
         </p>
 
-        <h2 className="mb-2 text-xl font-semibold text-gray-900">1. Data We Store</h2>
-        <p className="mb-4 text-gray-700">
-          In guest mode, your review progress is stored locally in your browser so you can use the
-          app without creating an account. In authenticated mode, account-linked progress and
-          learning records are stored in the application database to support sync across sessions
-          and devices.
-        </p>
+        <div className="space-y-4 text-secondary text-sm leading-relaxed mb-6">
+          <div>
+            <h2 className="mb-1 text-base font-semibold text-foreground">1. Data We Store</h2>
+            <p>
+              In guest mode, your review progress is stored locally in your browser. In authenticated
+              mode, account-linked progress is stored in the application database for cross-device sync.
+            </p>
+          </div>
 
-        <h2 className="mb-2 text-xl font-semibold text-gray-900">2. How We Use Data</h2>
-        <p className="mb-4 text-gray-700">
-          Data is used to provide the product experience: scheduling due cards, tracking review
-          outcomes, and generating progress analytics. We do not sell personal information. We use
-          operational logs and diagnostics to maintain uptime, investigate bugs, and improve feature
-          quality.
-        </p>
+          <div>
+            <h2 className="mb-1 text-base font-semibold text-foreground">2. How We Use Data</h2>
+            <p>
+              Data is used to provide the product experience: scheduling due cards, tracking review
+              outcomes, and generating progress analytics. We do not sell personal information.
+            </p>
+          </div>
 
-        <h2 className="mb-2 text-xl font-semibold text-gray-900">3. Authentication and Providers</h2>
-        <p className="mb-4 text-gray-700">
-          If you choose to sign in, third-party authentication providers may share profile details
-          required for account creation and login. The data shared depends on provider permissions
-          you approve. You can continue to use guest mode if you do not want account-based sync.
-        </p>
+          <div>
+            <h2 className="mb-1 text-base font-semibold text-foreground">3. Authentication and Providers</h2>
+            <p>
+              If you choose to sign in, third-party authentication providers may share profile details
+              required for account creation. You can continue to use guest mode if you do not want
+              account-based sync.
+            </p>
+          </div>
 
-        <h2 className="mb-2 text-xl font-semibold text-gray-900">4. Retention and Control</h2>
-        <p className="mb-4 text-gray-700">
-          Guest-mode data remains in your browser until cleared. Account data is retained while your
-          profile is active and for operational continuity unless deletion is requested. You can
-          request correction or deletion by contacting support.
-        </p>
+          <div>
+            <h2 className="mb-1 text-base font-semibold text-foreground">4. Retention and Control</h2>
+            <p>
+              Guest-mode data remains in your browser until cleared. Account data is retained while your
+              profile is active. You can request correction or deletion by contacting support.
+            </p>
+          </div>
 
-        <h2 className="mb-2 text-xl font-semibold text-gray-900">5. Contact</h2>
-        <p className="mb-4 text-gray-700">
-          We will never ask you for secrets, passwords, or private keys over email. If a request is
-          ambiguous, we may ask for verification details before processing account-related actions.
-          This verification step protects your data from unauthorized requests.
-        </p>
-        <p className="mb-4 text-gray-700">
-          If this policy changes in a way that materially affects how personal data is handled, we
-          will update this page with a new effective date and publish the revised terms in the
-          application. Continued use after updates indicates acceptance of the revised policy.
-        </p>
-        <p className="mb-8 text-gray-700">
-          Privacy requests or questions can be sent to{" "}
-          <a className="text-indigo-600 hover:text-indigo-700 font-medium" href="mailto:support@codememory.app">
-            support@codememory.app
-          </a>
-          .
-        </p>
-        <p className="mb-8 text-gray-700">
-          We review privacy practices periodically as the product evolves. If storage mechanisms,
-          authentication providers, or data-processing workflows change in a way that affects user
-          rights, this policy will be revised with updated language and dates. We recommend reviewing
-          this page occasionally if you rely on specific data handling guarantees.
-        </p>
+          <div>
+            <h2 className="mb-1 text-base font-semibold text-foreground">5. Contact</h2>
+            <p>
+              Privacy requests or questions can be sent to{" "}
+              <a className="text-accent hover:text-accent-hover font-medium transition-colors" href="mailto:support@codememory.app">
+                support@codememory.app
+              </a>
+              .
+            </p>
+          </div>
+        </div>
 
-        <div className="flex flex-wrap gap-3">
-          <Link href="/about" className="text-indigo-600 hover:text-indigo-700 font-medium">
+        <div className="flex flex-wrap gap-4 pt-4 border-t border-border">
+          <Link href="/about" className="text-sm font-medium text-accent hover:text-accent-hover transition-colors">
             About
           </Link>
-          <Link href="/contact" className="text-indigo-600 hover:text-indigo-700 font-medium">
+          <Link href="/contact" className="text-sm font-medium text-secondary hover:text-foreground transition-colors">
             Contact
           </Link>
-          <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-700 font-medium">
+          <Link href="/dashboard" className="text-sm font-medium text-secondary hover:text-foreground transition-colors">
             Dashboard
           </Link>
         </div>

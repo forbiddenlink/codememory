@@ -14,6 +14,8 @@ export async function GET(
         concept: {
           select: {
             name: true,
+            category: true,
+            language: true,
           },
         },
       },
