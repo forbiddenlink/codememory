@@ -80,22 +80,24 @@
 
 ---
 
-### Priority 3: Dark Mode
+### Priority 3: Dark Mode ✅ (Automatic)
 **Goal**: Reduce eye strain, modern UX
 
-**Implementation**:
+**Current Status**: Automatic dark mode implemented via CSS custom properties with `prefers-color-scheme` media query. Design system in `src/app/globals.css` provides light/dark variants for all semantic tokens (backgrounds, text, accents, borders, shadows).
+
+**Completed**:
+- [x] CSS custom property design system with dark mode variants
+- [x] System preference detection via `prefers-color-scheme`
+- [x] All semantic colors (accent, success, warning, error) have dark variants
+- [x] Proper contrast ratios maintained
+
+**Optional Enhancement** (manual toggle):
 - [ ] Install `next-themes` package
-- [ ] Create ThemeProvider wrapper
 - [ ] Add theme toggle button to navbar
-- [ ] Update all components with dark mode Tailwind classes
-  - Use `dark:` prefix for dark mode styles
-  - Update gradient colors for dark mode
-  - Ensure sufficient contrast
-- [ ] Persist theme preference (localStorage)
-- [ ] Add system preference detection
+- [ ] Persist user preference override (localStorage)
 - [ ] Update Monaco Editor theme for dark mode
 
-**Estimated Time**: 1-2 days
+**Note**: Manual toggle is optional - automatic system preference is the modern best practice
 
 ---
 
@@ -216,13 +218,17 @@
 
 ## 🔧 Phase 5: Developer Experience
 
-### Priority 10: Testing Suite
+### Priority 10: Testing Suite ✅ (Partial)
 **Goal**: Ensure code quality and prevent regressions
 
-**Implementation**:
-- [ ] Set up Jest + React Testing Library
-- [ ] Unit tests for FSRS calculations
-- [ ] Integration tests for API routes
+**Completed** (Feb 2026):
+- [x] Set up Vitest + React Testing Library (jsdom environment)
+- [x] Unit tests for FSRS calculations (8 tests)
+- [x] Unit tests for localStorage/guest-store (11 tests)
+- [x] Test setup with Next.js/NextAuth mocks
+
+**Remaining**:
+- [ ] Integration tests for API routes (mocked Prisma)
 - [ ] Component tests for key UI elements
 - [ ] E2E tests with Playwright/Cypress
   - Test review flow
@@ -231,7 +237,7 @@
 - [ ] CI/CD: Run tests on PR
 - [ ] Code coverage reporting
 
-**Estimated Time**: 3-4 days
+**Commands**: `npm run test` (watch), `npm run test:run` (single), `npm run test:coverage`
 
 ---
 
@@ -408,10 +414,11 @@
 ## 📝 Notes
 
 ### Technical Debt
-- [ ] Fix themeColor metadata warning (move to viewport)
+- [x] Fix themeColor metadata warning (moved to viewport export)
 - [ ] Standardize error handling across API routes
-- [ ] Consistent TypeScript types (remove any usage)
-- [ ] Refactor large components (split into smaller pieces)
+- [x] Consistent TypeScript types (removed `any` usage - Feb 2026 audit)
+- [x] Refactor review page into smaller components (343 → 230 lines)
+- [ ] Refactor remaining hotspots (stats page, challenges page)
 - [ ] Add JSDoc comments to complex functions
 
 ### Future Considerations
